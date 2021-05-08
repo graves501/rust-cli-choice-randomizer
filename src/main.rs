@@ -33,13 +33,18 @@ fn main() {
             .read_line(&mut reply)
             .expect("Failed to read input");
 
-        let reply = reply.trim().parse::<char>().unwrap_or(' ');
+        let parsed_reply = reply.trim().parse::<char>();
 
-        match reply {
-            'y' => continue,
-            'n' => break,
-            _ => println!("Invalid input! Type y or n!"),
-        };
+        match parsed_reply {
+            Ok(reply) => {
+                match reply {
+                    'y' => continue,
+                    'n' => break,
+                    _ => println!("Invalid input! Type y or n!"),
+                };
+            }
+            Err(e) => println!("Error: {}", e),
+        }
     }
 
     let random_choice = choices
